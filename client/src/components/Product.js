@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import "../css/App.css";
-import Rating from "./Rating";
 
 function Product() {
   return (
@@ -11,8 +10,8 @@ function Product() {
       <Row>
         <div
           style={{
-            backgroundColor: "#1db954", 
-            border: "20px solid #ddd", 
+            backgroundColor: "#1db954",
+            border: "20px solid #ddd",
             padding: "10px 20px",
             marginBottom: "20px",
             borderRadius: "8px",
@@ -77,7 +76,7 @@ function UsedAlbum() {
         const response = await fetch("http://localhost:8000/api/albums");
         const data = await response.json();
         if (data?.length) {
-          setAlbums(data.slice(0, 8)); 
+          setAlbums(data.slice(0, 8));
         }
       } catch (error) {
         console.error("Error fetching album data from MongoDB: ", error);
@@ -94,12 +93,22 @@ function UsedAlbum() {
     alert(`${album.name} has been added to your cart!`);
   };
 
+  const handleCardClick = (album) => {
+    const albumName = encodeURIComponent(album.name);
+    const artistName = encodeURIComponent(album.artist);
+    navigate(`/product/${albumName}/${artistName}`);
+  };
+
   return (
     <Row>
       {albums.length > 0 ? (
         albums.map((album, index) => (
           <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
-            <Card className="h-100 product" style={{ cursor: "pointer" }}>
+            <Card
+              className="h-100 product"
+              style={{ cursor: "pointer" }}
+              onClick={() => handleCardClick(album)} // Navigate on card click
+            >
               <Card.Img
                 variant="top"
                 src={album?.imageLink || "default-placeholder.png"}
@@ -117,7 +126,13 @@ function UsedAlbum() {
                   <strong>Condition: </strong>
                   {album.conditionDescription || "Good"}
                 </Card.Text>
-                <Button className="button" onClick={() => handleAddToCart(album)}>
+                <Button
+                  className="button"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent card click event
+                    handleAddToCart(album);
+                  }}
+                >
                   Add to cart
                 </Button>
               </Card.Body>
@@ -140,7 +155,7 @@ function CountryClassics() {
       try {
         const response = await fetch("http://localhost:8000/api/albums");
         const data = await response.json();
-        const countryAlbums = data.filter(album =>
+        const countryAlbums = data.filter((album) =>
           ["I Walk the Line", "The Pressure Is On", "Willy and the Poor Boys", "Gunfighter Ballads and Trail Songs"].includes(album.name)
         );
         setAlbums(countryAlbums);
@@ -152,11 +167,10 @@ function CountryClassics() {
     fetchData();
   }, []);
 
-  const handleAddToCart = (album) => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(album);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert(`${album.name} has been added to your cart!`);
+  const handleCardClick = (album) => {
+    const albumName = encodeURIComponent(album.name);
+    const artistName = encodeURIComponent(album.artist);
+    navigate(`/product/${albumName}/${artistName}`);
   };
 
   return (
@@ -164,7 +178,11 @@ function CountryClassics() {
       {albums.length > 0 ? (
         albums.map((album, index) => (
           <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
-            <Card className="h-100 product" style={{ cursor: "pointer" }}>
+            <Card
+              className="h-100 product"
+              style={{ cursor: "pointer" }}
+              onClick={() => handleCardClick(album)}
+            >
               <Card.Img
                 variant="top"
                 src={album?.imageLink || "default-placeholder.png"}
@@ -182,7 +200,13 @@ function CountryClassics() {
                   <strong>Condition: </strong>
                   {album.conditionDescription || "Good"}
                 </Card.Text>
-                <Button className="button" onClick={() => handleAddToCart(album)}>
+                <Button
+                  className="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    alert("Add to cart not implemented in this section yet!");
+                  }}
+                >
                   Add to cart
                 </Button>
               </Card.Body>
@@ -205,7 +229,7 @@ function FilmSoundtracks() {
       try {
         const response = await fetch("http://localhost:8000/api/albums");
         const data = await response.json();
-        const soundtrackAlbums = data.filter(album =>
+        const soundtrackAlbums = data.filter((album) =>
           ["The Boy and the Heron", "The Big Lebowski", "Fantastic Mr. Fox", "Taxi Driver"].includes(album.name)
         );
         setAlbums(soundtrackAlbums);
@@ -217,11 +241,10 @@ function FilmSoundtracks() {
     fetchData();
   }, []);
 
-  const handleAddToCart = (album) => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(album);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert(`${album.name} has been added to your cart!`);
+  const handleCardClick = (album) => {
+    const albumName = encodeURIComponent(album.name);
+    const artistName = encodeURIComponent(album.artist);
+    navigate(`/product/${albumName}/${artistName}`);
   };
 
   return (
@@ -229,7 +252,11 @@ function FilmSoundtracks() {
       {albums.length > 0 ? (
         albums.map((album, index) => (
           <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
-            <Card className="h-100 product" style={{ cursor: "pointer" }}>
+            <Card
+              className="h-100 product"
+              style={{ cursor: "pointer" }}
+              onClick={() => handleCardClick(album)}
+            >
               <Card.Img
                 variant="top"
                 src={album?.imageLink || "default-placeholder.png"}
@@ -247,7 +274,13 @@ function FilmSoundtracks() {
                   <strong>Condition: </strong>
                   {album.conditionDescription || "Good"}
                 </Card.Text>
-                <Button className="button" onClick={() => handleAddToCart(album)}>
+                <Button
+                  className="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    alert("Add to cart not implemented in this section yet!");
+                  }}
+                >
                   Add to cart
                 </Button>
               </Card.Body>
