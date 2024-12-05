@@ -9,6 +9,7 @@ import Profile from "./screens/Profile";
 import ResetPassword from "./screens/ResetPasswrd";
 import SignUpOut from "./screens/Signup";
 import Payment from "./screens/Payment";
+
 function App() {
   return (
     <>
@@ -29,6 +30,8 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword/>}/>
           <Route path="/Sign-up" element={<SignUpOut/>}/>
           <Route path="/cart" element={<Payment />} />
+          <Route path="/product/:albumName/:artistName" element={<ProductScreen />} />
+
         </Routes>
         </main>
         <footer>
