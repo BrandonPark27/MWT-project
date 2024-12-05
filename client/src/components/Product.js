@@ -77,7 +77,7 @@ function UsedAlbum() {
         const response = await fetch("http://localhost:8000/api/albums");
         const data = await response.json();
         if (data?.length) {
-          setAlbums(data.slice(0, 4)); 
+          setAlbums(data.slice(0, 8)); 
         }
       } catch (error) {
         console.error("Error fetching album data from MongoDB: ", error);
@@ -87,10 +87,11 @@ function UsedAlbum() {
     fetchData();
   }, []);
 
-  const handleProductClick = (album) => {
-    const albumName = encodeURIComponent(album.name);
-    const artistName = encodeURIComponent(album.artist);
-    navigate(`/product/${albumName}/${artistName}`);
+  const handleAddToCart = (album) => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(album);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`${album.name} has been added to your cart!`);
   };
 
   return (
@@ -104,22 +105,21 @@ function UsedAlbum() {
                 src={album?.imageLink || "default-placeholder.png"}
                 alt={album.name}
                 className="product_img"
-                onClick={() => handleProductClick(album)}
               />
               <Card.Body>
-                <div onClick={() => handleProductClick(album)}>
-                  <Card.Title>{album.name}</Card.Title>
-                  <Card.Text>{album.artist}</Card.Text>
-                  <Card.Text>
-                    <small>$</small>
-                    <strong>{album.price || "9.99"}</strong>
-                  </Card.Text>
-                  <Card.Text>
-                    <strong>Condition: </strong>
-                    {album.conditionDescription || "Good"}
-                  </Card.Text>
-                </div>
-                <Button className="button">Add to cart</Button>
+                <Card.Title>{album.name}</Card.Title>
+                <Card.Text>{album.artist}</Card.Text>
+                <Card.Text>
+                  <small>$</small>
+                  <strong>{album.price || "9.99"}</strong>
+                </Card.Text>
+                <Card.Text>
+                  <strong>Condition: </strong>
+                  {album.conditionDescription || "Good"}
+                </Card.Text>
+                <Button className="button" onClick={() => handleAddToCart(album)}>
+                  Add to cart
+                </Button>
               </Card.Body>
             </Card>
           </Col>
@@ -140,7 +140,6 @@ function CountryClassics() {
       try {
         const response = await fetch("http://localhost:8000/api/albums");
         const data = await response.json();
-        // Filter albums for country classics
         const countryAlbums = data.filter(album =>
           ["I Walk the Line", "The Pressure Is On", "Willy and the Poor Boys", "Gunfighter Ballads and Trail Songs"].includes(album.name)
         );
@@ -153,10 +152,11 @@ function CountryClassics() {
     fetchData();
   }, []);
 
-  const handleProductClick = (album) => {
-    const albumName = encodeURIComponent(album.name);
-    const artistName = encodeURIComponent(album.artist);
-    navigate(`/product/${albumName}/${artistName}`);
+  const handleAddToCart = (album) => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(album);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`${album.name} has been added to your cart!`);
   };
 
   return (
@@ -170,22 +170,21 @@ function CountryClassics() {
                 src={album?.imageLink || "default-placeholder.png"}
                 alt={album.name}
                 className="product_img"
-                onClick={() => handleProductClick(album)}
               />
               <Card.Body>
-                <div onClick={() => handleProductClick(album)}>
-                  <Card.Title>{album.name}</Card.Title>
-                  <Card.Text>{album.artist}</Card.Text>
-                  <Card.Text>
-                    <small>$</small>
-                    <strong>{album.price || "9.99"}</strong>
-                  </Card.Text>
-                  <Card.Text>
-                    <strong>Condition: </strong>
-                    {album.conditionDescription || "Good"}
-                  </Card.Text>
-                </div>
-                <Button className="button">Add to cart</Button>
+                <Card.Title>{album.name}</Card.Title>
+                <Card.Text>{album.artist}</Card.Text>
+                <Card.Text>
+                  <small>$</small>
+                  <strong>{album.price || "9.99"}</strong>
+                </Card.Text>
+                <Card.Text>
+                  <strong>Condition: </strong>
+                  {album.conditionDescription || "Good"}
+                </Card.Text>
+                <Button className="button" onClick={() => handleAddToCart(album)}>
+                  Add to cart
+                </Button>
               </Card.Body>
             </Card>
           </Col>
@@ -218,10 +217,11 @@ function FilmSoundtracks() {
     fetchData();
   }, []);
 
-  const handleProductClick = (album) => {
-    const albumName = encodeURIComponent(album.name);
-    const artistName = encodeURIComponent(album.artist);
-    navigate(`/product/${albumName}/${artistName}`);
+  const handleAddToCart = (album) => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(album);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`${album.name} has been added to your cart!`);
   };
 
   return (
@@ -235,22 +235,21 @@ function FilmSoundtracks() {
                 src={album?.imageLink || "default-placeholder.png"}
                 alt={album.name}
                 className="product_img"
-                onClick={() => handleProductClick(album)}
               />
               <Card.Body>
-                <div onClick={() => handleProductClick(album)}>
-                  <Card.Title>{album.name}</Card.Title>
-                  <Card.Text>{album.artist}</Card.Text>
-                  <Card.Text>
-                    <small>$</small>
-                    <strong>{album.price || "9.99"}</strong>
-                  </Card.Text>
-                  <Card.Text>
-                    <strong>Condition: </strong>
-                    {album.conditionDescription || "Good"}
-                  </Card.Text>
-                </div>
-                <Button className="button">Add to cart</Button>
+                <Card.Title>{album.name}</Card.Title>
+                <Card.Text>{album.artist}</Card.Text>
+                <Card.Text>
+                  <small>$</small>
+                  <strong>{album.price || "9.99"}</strong>
+                </Card.Text>
+                <Card.Text>
+                  <strong>Condition: </strong>
+                  {album.conditionDescription || "Good"}
+                </Card.Text>
+                <Button className="button" onClick={() => handleAddToCart(album)}>
+                  Add to cart
+                </Button>
               </Card.Body>
             </Card>
           </Col>
