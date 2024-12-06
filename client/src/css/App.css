@@ -78,7 +78,7 @@ h1 {
 .home_banner {
   align-items: flex-start;
   width: 100%;
-  margin-bottom: -400px;
+  margin-bottom: -28%;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
 /* Product */

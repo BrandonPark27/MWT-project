@@ -8,10 +8,12 @@ function Product() {
     <Container className="Container_product">
       {/* Second Hand Albums */}
       <Row>
-        <div
+        <Col
           style={{
+            maskImage: "linear-gradient(to bottom, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 1) 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 1)",
             backgroundColor: "#1db954",
-            border: "20px solid #ddd",
+            border: "2px solid #1db954",
             padding: "10px 20px",
             marginBottom: "20px",
             borderRadius: "8px",
@@ -21,7 +23,7 @@ function Product() {
           }}
         >
           <p style={{ margin: "0", fontWeight: "bold" }}>Check out our Second Hand albums below!</p>
-        </div>
+        </Col>
         <UsedAlbum />
       </Row>
 

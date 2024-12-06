@@ -5,6 +5,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { Link, useNavigate } from "react-router-dom";
+import "../css/App.css";
 
 export default function CartScreen() {
   const [cartItems, setCartItems] = useState([]);
@@ -22,11 +23,19 @@ export default function CartScreen() {
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + (parseFloat(item.price) || 0), 0).toFixed(2);
+    return cartItems
+      .reduce((total, item) => total + (parseFloat(item.price) || 0), 0)
+      .toFixed(2);
+  };
+
+  const handleCheckout = () => {
+    const total = calculateTotal();
+    localStorage.setItem("total", total);
+    navigate("/checkout");
   };
 
   return (
-    <div>
+    <div className="cart-screen">
       <title>Shopping Cart</title>
       <h1>Shopping Cart</h1>
       <Row>
@@ -69,7 +78,7 @@ export default function CartScreen() {
                 type="button"
                 variant="primary"
                 disabled={cartItems.length === 0}
-                onClick={() => navigate("/checkout")}
+                onClick={handleCheckout} // Save total and navigate
               >
                 Proceed to Checkout
               </Button>
@@ -78,5 +87,8 @@ export default function CartScreen() {
         </Col>
       </Row>
     </div>
+    
   );
+  
 }
+
